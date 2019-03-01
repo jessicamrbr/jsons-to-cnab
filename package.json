@@ -1,0 +1,19 @@
+{
+  "name": "jsons-to-cnab",
+  "version": "1.0.0",
+  "description": "Convert JSON data and map to cnab file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessicamrbr/jsons-to-cnab.git"
+  },
+  "author": "Jéssica Moura Ribeiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jessicamrbr/jsons-to-cnab/issues"
+  },
+  "homepage": "https://github.com/jessicamrbr/jsons-to-cnab#readme"
+}
