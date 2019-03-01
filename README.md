@@ -17,10 +17,8 @@ Start the file constructor, providing a name and the size of the internal lines.
 ``` JavaScript
 const JsonToCnab = require("json-to-cnab")
 
-const fileName = "REM001.txt"
 const registryLength = 240
-
-const jsonToCnab = new JsonToCnab(fileName, registryLength)
+const jsonToCnab = new JsonToCnab(registryLength)
 ...
 ```
 
@@ -180,13 +178,13 @@ Some of the auxiliary libraries included in this package allow you to get pre-de
 const bank = "341"
 const product = "SISPAG"
 const direction = "REMESSA" 
-const lot_name = "PAG-OP-DOC-TED-CC"
+const lotAlias = "PAG-OP-DOC-TED-CC"
         
 const {
     configHeaderFile, configHeaderLot, 
     configDetail
     configFooterLot, configFooterFile
-} = JsonToCnab.getFromLayoutsLib(bank, product, direction, lot_name)
+} = JsonToCnab.getFromLayoutsLib(bank, product, direction, lotAlias)
 
 jsonToCnab.setFooterFile(configFooterFile)
 
@@ -196,10 +194,10 @@ jsonToCnab.setFooterFile(configFooterFile)
 
 Você pode salvar seus próprios layouts no formato:
 
-| bank | product | direction | lot               | row_type      | field_name    | descripton                   | position_start | position_end | position_length | picture | default_value |  
-| ---- | ------- | --------- | ----------------- | ------------- | ------------- | ---------------------------- | -------------- | ------------ | --------------- | ------- | ------------- |
-| Itaú | SISPAG  | REMESSA   | PAG-OP-DOC-TED-CC | header-file   | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
-| Itaú | SISPAG  | REMESSA   | PAG-OP-DOC-TED-CC | header-lot    | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
+| direction | lotAlias          | rowType       | fieldName     | descripton                   | positionStart  | positionEnd  | positionLength  | picture | defaultValue  |  
+| --------- | ----------------- | ------------- | ------------- | ---------------------------- | -------------- | ------------ | --------------- | ------- | ------------- |
+| REMESSA   | PAG-OP-DOC-TED-CC | header-file   | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
+| REMESSA   | PAG-OP-DOC-TED-CC | header-lot    | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
 
 ## Tips
 

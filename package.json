@@ -2,18 +2,35 @@
   "name": "jsons-to-cnab",
   "version": "1.0.0",
   "description": "Convert JSON data and map to cnab file",
+  "author": "Jéssica Moura Ribeiro",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tests": "mocha --inspect-brk --recursive \"./tests/**/*.test.js\"",
+    "travis": "nyc --reporter lcov mocha --recursive \"./tests/**/*.test.js\"",
+    "coverage": "nyc --reporter html mocha --recursive \"./tests/**/*.test.js\"",
+    "coveralls": "cat ./coverage/lcov.info"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jessicamrbr/jsons-to-cnab.git"
   },
-  "author": "Jéssica Moura Ribeiro",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jessicamrbr/jsons-to-cnab/issues"
+  "homepage": "https://github.com/jessicamrbr/jsons-to-cnab#readme",
+  "keywords": [
+    "cnab",
+    "json",
+    "parse",
+    "convert"
+  ],
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.3",
+    "istanbul": "^0.4.5",
+    "mocha": "^6.0.2",
+    "mocha-lcov-reporter": "^1.3.0"
   },
-  "homepage": "https://github.com/jessicamrbr/jsons-to-cnab#readme"
+  "dependencies": {
+    "csvtojson": "^2.0.8",
+    "lodash": "^4.17.11"
+  }
 }

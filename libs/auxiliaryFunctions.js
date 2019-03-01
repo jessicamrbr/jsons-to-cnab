@@ -1,8 +1,8 @@
 module.exports = {
-    validateStandardLayoutsDir(standardLayoutsDir) {
+    validateLayoutDirectory(layoutDirectory) {
         return (typeof fileName == "String" && fileName != "")
-            ? standardLayoutsDir
-            : "/layouts"
+            ? layoutDirectory
+            : "./layouts/"
     },
     validateRegistryLength(registryLength) {
         return (typeof registryLength == "number" && (registryLength == 240 || registryLength == 400))

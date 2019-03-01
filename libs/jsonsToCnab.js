@@ -1,15 +1,14 @@
-const {
-    validateRegistryLength, validateStandardLayoutsDir,
-    validateLayout, validateFields
-} = require('auxiliaryFunctions')
-
 const csv=require('csvtojson')
+const _=require('lodash')
+
+const {
+    validateRegistryLength, validateLayoutDirectory,
+    validateLayout, validateFields
+} = require('./auxiliaryFunctions')
 
 class jsonsToCnab {
     constructor(registryLength=240, standardLayoutsDir="") {
         this.registryLength = validateRegistryLength(registryLength)
-        this.standardLayoutsDir = validateStandardLayoutsDir(standardLayoutsDir)
-
 
         this.headerFileContent = ""
         this.footerFileContent = ""
@@ -32,7 +31,7 @@ class jsonsToCnab {
     }
 
     addHeaderLote(data) {
-        this.lots[] =
+        this.lots[1] = ""
     }
 
     configRow(layout) {
@@ -75,8 +74,23 @@ class jsonsToCnab {
         return Buffer.from(fileContent, 'utf8')
     }
 
-    static getFromLayoutsLib(bank, product, direction, lot_name) {
-        this.standardLayoutsDir
+    static async getFromLayoutsLib(product, direction="REMESSA", lotAlias, layoutDirectory) {
+        layoutDirectory = validateLayoutDirectory(layoutDirectory)
+
+        let layout = await csv({
+            "trim": true,
+            "ignoreEmpty": true
+        }).fromFile(`${layoutDirectory}${product}.csv`)
+
+        layout = _.filter(layout, (item) => { return (
+            item.direction == direction
+            && (
+                item.lotAlias == lotAlias
+                || _.isNil(item.lotAlias)
+            )
+        )})
+
+        return layout
     }
 }
 
