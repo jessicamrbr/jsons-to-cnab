@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/jessicamrbr/jsons-to-cnab.svg?branch=master)](https://travis-ci.org/jessicamrbr/jsons-to-cnab)
-[![Coverage Status](https://coveralls.io/repos/github/jessicamrbr/jsons-to-cnab/badge.svg?branch=master)](https://coveralls.io/github/jessicamrbr/jsons-to-cnab?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/jessicamrbr/jsons-to-cnab/badge.svg)](https://coveralls.io/github/jessicamrbr/jsons-to-cnab)
 
 # jsons-to-cnab
 Convert JSON map and data to cnab file 
@@ -7,7 +7,7 @@ Convert JSON map and data to cnab file
 ## Installation
 
 ```sh
-npm install sons-to-cnab --save
+npm install jsons-to-cnab --save
 ```
 
 ## Use
@@ -15,7 +15,7 @@ npm install sons-to-cnab --save
 Start the file constructor, providing a name and the size of the internal lines.
 
 ``` JavaScript
-const JsonToCnab = require("json-to-cnab")
+const JsonToCnab = require("jsons-to-cnab")
 
 const registryLength = 240
 const jsonToCnab = new JsonToCnab(registryLength)

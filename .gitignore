@@ -7,6 +7,7 @@ npm-debug.log*
 /.nyc_output/
 /coverage/
 
+
 # Dependencys
 node_modules/
 
@@ -15,4 +16,4 @@ node_modules/
 .eslintcache
 
 # IDEs
-/.idea/
+/.idea/*
