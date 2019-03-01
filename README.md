@@ -15,10 +15,10 @@ npm install jsons-to-cnab --save
 Start the file constructor, providing a name and the size of the internal lines.
 
 ``` JavaScript
-const JsonToCnab = require("jsons-to-cnab")
+const JsonsToCnab = require("jsons-to-cnab")
 
 const registryLength = 240
-const jsonToCnab = new JsonToCnab(registryLength)
+const jsonsToCnab = new JsonsToCnab(registryLength)
 ...
 ```
 
@@ -81,7 +81,7 @@ const exJsonMapHeaderLot = [
     ...
 ]
 
-jsonToCnab.configHeaderLot(exJsonMapHeaderLot)
+jsonsToCnab.configHeaderLot(exJsonMapHeaderLot)
 
 ...
 ```
@@ -95,7 +95,7 @@ const exJsonDataHeaderLot = {
     CODIGODOLOTE: 001
 }
 
-jsonToCnab.addHeaderLot(exJsonDataHeaderLot)
+jsonsToCnab.addHeaderLot(exJsonDataHeaderLot)
 
 ...
 ```
@@ -107,8 +107,8 @@ Configure the file header and define the data applied to the layout:
 ``` JavaScript
 ...
 
-jsonToCnab.configHeaderFile(jsonMap)
-jsonToCnab.setHeaderFile(jsonData)
+jsonsToCnab.configHeaderFile(jsonMap)
+jsonsToCnab.setHeaderFile(jsonData)
 
 ...
 ```
@@ -118,8 +118,8 @@ Configure a lot header and define the data applied to the layout:
 ``` JavaScript
 ...
 
-jsonToCnab.configHeaderLote(jsonMap)
-jsonToCnab.addHeaderLote(jsonData)
+jsonsToCnab.configHeaderLote(jsonMap)
+jsonsToCnab.addHeaderLote(jsonData)
 
 ...
 ```
@@ -129,8 +129,8 @@ Configure a row detail and define the data applied to the layout:
 ``` JavaScript
 ...
 
-jsonToCnab.configRow(jsonMap)
-jsonToCnab.addRow(jsonData)
+jsonsToCnab.configRow(jsonMap)
+jsonsToCnab.addRow(jsonData)
 
 ...
 ```
@@ -140,8 +140,8 @@ Configure a lot footer and define the data applied to the layout:
 ``` JavaScript
 ...
 
-jsonToCnab.configFooterLote(jsonMap)
-jsonToCnab.addFooterLote(jsonData)
+jsonsToCnab.configFooterLote(jsonMap)
+jsonsToCnab.addFooterLote(jsonData)
 
 ...
 ```
@@ -151,8 +151,8 @@ Configure a header footer and define the data applied to the layout:
 ``` JavaScript
 ...
 
-jsonToCnab.configFooterFile(jsonMap)
-jsonToCnab.setFooterFile(jsonData)
+jsonsToCnab.configFooterFile(jsonMap)
+jsonsToCnab.setFooterFile(jsonData)
 
 ...
 ```
@@ -162,7 +162,7 @@ Exports the data stored in the instance to a file:
 ``` JavaScript
 ...
 
-jsonToCnab.save()
+jsonsToCnab.save()
 
 ...
 ```
@@ -184,9 +184,9 @@ const {
     configHeaderFile, configHeaderLot, 
     configDetail
     configFooterLot, configFooterFile
-} = JsonToCnab.getFromLayoutsLib(bank, product, direction, lotAlias)
+} = JsonsToCnab.getFromLayoutsLib(bank, product, direction, lotAlias)
 
-jsonToCnab.setFooterFile(configFooterFile)
+jsonsToCnab.setFooterFile(configFooterFile)
 
 ...
 ```

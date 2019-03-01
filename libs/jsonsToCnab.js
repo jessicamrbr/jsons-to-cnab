@@ -1,5 +1,5 @@
-const csv=require('csvtojson')
-const _=require('lodash')
+const csv = require('csvtojson')
+const _ = require('lodash')
 
 const {
     validateRegistryLength, validateLayoutDirectory,
@@ -31,6 +31,7 @@ class jsonsToCnab {
     }
 
     addHeaderLote(data) {
+        validateFields(data, this.currentHeaderFileLayout)
         this.lots[1] = ""
     }
 
@@ -40,7 +41,8 @@ class jsonsToCnab {
     }
 
     addRow(data) {
-
+        data = validateFields(data, this.currentHeaderFileLayout)
+        pureObject.values(data)
     }
 
     configFooterLot(layout) {
@@ -49,6 +51,7 @@ class jsonsToCnab {
     }
 
     addFooterLote(data) {
+        validateFields(data, this.currentHeaderFileLayout)
         this.countLotFooter++
     }
 
@@ -59,6 +62,7 @@ class jsonsToCnab {
     }
 
     setFooterFile(data) {
+        validateFields(data, this.currentHeaderFileLayout)
         this.footerFileContent
     }
 
@@ -69,6 +73,7 @@ class jsonsToCnab {
 
         fileContent  = ""
         fileContent += this.headerFileContent
+        fileContent += this.lots.flat(10).join("")
         fileContent += this.footerFileContent
 
         return Buffer.from(fileContent, 'utf8')
