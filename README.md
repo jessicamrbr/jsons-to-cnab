@@ -192,7 +192,7 @@ jsonsToCnab.setFooterFile(configFooterFile)
 ```
 
 
-Você pode salvar seus próprios layouts no formato:
+You can save your own layouts in the format:
 
 | direction | lotAlias          | rowType       | fieldName     | descripton                   | positionStart  | positionEnd  | positionLength  | picture | defaultValue  |  
 | --------- | ----------------- | ------------- | ------------- | ---------------------------- | -------------- | ------------ | --------------- | ------- | ------------- |
