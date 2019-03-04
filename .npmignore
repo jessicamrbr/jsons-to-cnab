@@ -1,0 +1,19 @@
+# Logs
+*.log
+npm-debug.log*
+
+# Tests
+/.coveralls.yml
+/.nyc_output/
+/coverage/
+/tests/
+
+# Deploy
+/.travis.yml
+
+# Caches
+.npm
+.eslintcache
+
+# IDEs
+/.idea/*
