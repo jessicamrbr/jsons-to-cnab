@@ -199,6 +199,15 @@ Você pode salvar seus próprios layouts no formato:
 | REMESSA   | PAG-OP-DOC-TED-CC | header-file   | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
 | REMESSA   | PAG-OP-DOC-TED-CC | header-lot    | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
 
+#### Others help methods
+
+- ```counterLots()```: Count the current number of registered lots;
+- ```counterRegistersInFile()```: Count the total lines of the file;
+- ```counterRegistersInCurrentLot()```: Count total lines in lot
+- ```counterDetailsInCurrentLot()```: Counts the total of computed* details
+
+\* By adding a row you can tell whether or not it should be computed. Some instructions specify that special records should not be computed with a new sequential number.
+
 ## Tips
 
 ### CNABS for payments
