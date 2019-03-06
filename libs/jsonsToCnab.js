@@ -7,7 +7,7 @@ const {
     validateLayout, validateFields
 } = require('./auxiliaryFunctions')
 
-class jsonsToCnab {
+class JsonsToCnab {
     constructor(registryLength=240) {
         this.registryLength = validateRegistryLength(registryLength)
 
@@ -130,7 +130,7 @@ class jsonsToCnab {
         return Buffer.from(fileContent, 'utf8')
     }
 
-    static async getFromLayoutsLib(product, direction="REMESSA", lotAlias, layoutDirectory) {
+    static async getFromLayoutsLib(product, registerAlias, layoutDirectory) {
         layoutDirectory = validateLayoutDirectory(layoutDirectory)
 
         let layout = await csv({
@@ -139,20 +139,13 @@ class jsonsToCnab {
         }).fromFile(`${layoutDirectory}${product}.csv`)
 
         layout = _.filter(layout, (item) => { return (
-            item.direction == direction
-            && (
-                item.lotAlias == lotAlias
-                || _.isNil(item.lotAlias)
-            )
+            item.registerAlias == registerAlias
         )})
 
-        layout = _.groupBy(layout, 'rowType')
-        _.mapKeys(layout, function(group, groupKey) {
-            layout[groupKey] = _.map(group, (item) => { return _.omit(item, ['direction', 'rowType', 'descripton']) })
-        })
+        layout = _.map(layout, (field) => { return _.omit(field, ['descripton']) })
 
         return layout
     }
 }
 
-module.exports = jsonsToCnab
+module.exports = JsonsToCnab

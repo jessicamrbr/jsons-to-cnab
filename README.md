@@ -12,16 +12,6 @@ npm install jsons-to-cnab --save
 
 ## Use
 
-Start the file constructor, providing a name and the size of the internal lines.
-
-``` JavaScript
-const JsonsToCnab = require("jsons-to-cnab")
-
-const registryLength = 240
-const jsonsToCnab = new JsonsToCnab(registryLength)
-...
-```
-
 Recalling the structure of CNAB:
 
 | N1      | N2             | N3             | N4      |
@@ -37,11 +27,24 @@ Recalling the structure of CNAB:
 |         |                | Footer of Lot  |         |
 |         | Footer of File |                |         |
 
-For each generated file, it is necessary to add only one header and file footer through the set method. We can add one or more of the other elements as head and footer for batch or details.
+#### (Direction: sending/remessa) Methods available for manipulating files through JSONs directly.
 
-- We can use config methods more than once. Each time it is used it will configure the element map until the next map configuration.
-- The set method rewrites the element properties and should be used at least once. When it is used more than once, it will erase the previous element and write a new one in its place.
-- The "add method" includes a new element to the final document. the previous elements are retained instead of rewritten.
+Start the file constructor, providing the size of the internal lines.
+
+``` JavaScript
+const { JsonsToCnab } = require("jsons-to-cnab")
+
+const registryLength = 240
+const jsonsToCnab = new JsonsToCnab(registryLength)
+
+...
+```
+
+We can use config methods more than once. Each time it is used it will configure the element map until the next map configuration.
+
+The set method rewrites the element properties and should be used at least once. When it is used more than once, it will erase the previous element and write a new one in its place.
+
+The "add method" includes a new element to the final document. the previous elements are retained instead of rewritten.
 
 Pass the map of the fields that make up the element in the following format.
 
@@ -61,7 +64,7 @@ ex.:
 ``` JavaScript
 ...
 
-const exJsonMapHeaderLot = [
+const exJsonMapSample = [
     {
         fieldName: "CODIGODOBANCO", 
         positionStart: 1,
@@ -81,8 +84,6 @@ const exJsonMapHeaderLot = [
     ...
 ]
 
-jsonsToCnab.configHeaderLot(exJsonMapHeaderLot)
-
 ...
 ```
 
@@ -91,35 +92,35 @@ The values of the fields will be informed through a JSON, where the attributes w
 ``` JavaScript
 ...
 
-const exJsonDataHeaderLot = {
+const exJsonDataSample = {
     CODIGODOLOTE: 001
 }
 
-jsonsToCnab.addHeaderLot(exJsonDataHeaderLot)
-
 ...
 ```
-
-#### Methods available for manipulating files through JSONs directly.
 
 Configure the file header and define the data applied to the layout:
 
 ``` JavaScript
 ...
 
-jsonsToCnab.configHeaderFile(jsonMap)
-jsonsToCnab.setHeaderFile(jsonData)
+jsonsToCnab.configHeaderFile(exJsonMapSample)
+jsonsToCnab.setHeaderFile(exJsonDataSample)
 
 ...
 ```
+
+For each generated file, it is necessary to add only one header and file footer through the set method.
+
+We can add one or more of the other elements as head and footer for batch or details.
 
 Configure a lot header and define the data applied to the layout:
 
 ``` JavaScript
 ...
 
-jsonsToCnab.configHeaderLote(jsonMap)
-jsonsToCnab.addHeaderLote(jsonData)
+jsonsToCnab.configHeaderLote(exJsonMapSample)
+jsonsToCnab.addHeaderLote(exJsonDataSample)
 
 ...
 ```
@@ -129,8 +130,8 @@ Configure a row detail and define the data applied to the layout:
 ``` JavaScript
 ...
 
-jsonsToCnab.configRow(jsonMap)
-jsonsToCnab.addRow(jsonData)
+jsonsToCnab.configRow(exJsonMapSample)
+jsonsToCnab.addRow(exJsonDataSample)
 
 ...
 ```
@@ -140,8 +141,8 @@ Configure a lot footer and define the data applied to the layout:
 ``` JavaScript
 ...
 
-jsonsToCnab.configFooterLote(jsonMap)
-jsonsToCnab.addFooterLote(jsonData)
+jsonsToCnab.configFooterLote(exJsonMapSample)
+jsonsToCnab.addFooterLote(exJsonDataSample)
 
 ...
 ```
@@ -151,8 +152,8 @@ Configure a header footer and define the data applied to the layout:
 ``` JavaScript
 ...
 
-jsonsToCnab.configFooterFile(jsonMap)
-jsonsToCnab.setFooterFile(jsonData)
+jsonsToCnab.configFooterFile(exJsonMapSample)
+jsonsToCnab.setFooterFile(exJsonDataSample)
 
 ...
 ```
@@ -167,6 +168,47 @@ jsonsToCnab.save()
 ...
 ```
 
+#### (Direction: return/retorno) Methods available for manipulating files through JSONs directly.
+
+Start the file reader, providing the size of the internal lines.
+
+``` JavaScript
+const { CnabToJsons } = require("jsons-to-cnab")
+
+const base64FromFile = getFile() // this method is not included in the package, it returns a file encoded in base64
+const cnabToJsons = new CnabToJsons(base64FromFile)
+
+...
+```
+
+We need to train the reader so that it identifies which layout to apply to each line.
+
+``` JavaScript
+...
+
+const definitions = [
+    {
+        "position": [14],
+        "value": ["A"],
+        "map": exJsonMapSample
+    }
+]
+
+cnabToJsons.fit_define(definitions)
+
+...
+```
+
+Exports the data from file to instance:
+
+``` JavaScript
+...
+
+const jsonData = cnabToJsons.convert()
+
+...
+```
+
 #### Methods available for picking up standard layouts
 
 Some of the auxiliary libraries included in this package allow you to get pre-defined layouts of CSV settings tables.
@@ -175,18 +217,12 @@ Some of the auxiliary libraries included in this package allow you to get pre-de
 ``` JavaScript
 ...
 
-const bank = "341"
 const product = "SISPAG"
-const direction = "REMESSA" 
-const lotAlias = "PAG-OP-DOC-TED-CC"
+const registerAlias = "HED-OP-DOC-TED-CC"
         
-const {
-    configHeaderFile, configHeaderLot, 
-    configDetail
-    configFooterLot, configFooterFile
-} = JsonsToCnab.getFromLayoutsLib(bank, product, direction, lotAlias)
+const jsonMap = JsonsToCnab.getFromLayoutsLib(product, registerAlias)
 
-jsonsToCnab.setFooterFile(configFooterFile)
+jsonsToCnab.setFooterFile(jsonMap)
 
 ...
 ```
@@ -201,10 +237,10 @@ You can save your own layouts in the format:
 
 #### Others help methods
 
-- ```counterLots()```: Count the current number of registered lots;
-- ```counterRegistersInFile()```: Count the total lines of the file;
-- ```counterRegistersInCurrentLot()```: Count total lines in lot
-- ```counterDetailsInCurrentLot()```: Counts the total of computed* details
+- ```jsonsToCnab.counterLots()```: Count the current number of registered lots;
+- ```jsonsToCnab.counterRegistersInFile()```: Count the total lines of the file;
+- ```jsonsToCnab.counterRegistersInCurrentLot()```: Count total lines in lot
+- ```jsonsToCnab.counterDetailsInCurrentLot()```: Counts the total of computed* details
 
 \* By adding a row you can tell whether or not it should be computed. Some instructions specify that special records should not be computed with a new sequential number.
 
