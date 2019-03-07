@@ -230,10 +230,10 @@ jsonsToCnab.setFooterFile(jsonMap)
 
 You can save your own layouts in the format:
 
-| direction | lotAlias          | rowType       | fieldName     | descripton                   | positionStart  | positionEnd  | positionLength  | picture | defaultValue  |  
-| --------- | ----------------- | ------------- | ------------- | ---------------------------- | -------------- | ------------ | --------------- | ------- | ------------- |
-| REMESSA   | PAG-OP-DOC-TED-CC | header-file   | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
-| REMESSA   | PAG-OP-DOC-TED-CC | header-lot    | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
+| registerAlias | fieldName     | descripton                   | positionStart  | positionEnd  | positionLength  | picture | defaultValue  |  
+| ------------- | ------------- | ---------------------------- | -------------- | ------------ | --------------- | ------- | ------------- |
+| HED-FIL       | CODIGODOBANCO | CÓDIGO DO BCO NA COMPENSAÇÃO | 1              | 3            | 3               | 9       | 341           |
+| HED-FIL       | CODIGODOLOTE  | LOTE DE SERVIÇO              | 4              | 7            | 4               | 9       |               |
 
 #### Others help methods
 
@@ -246,8 +246,8 @@ You can save your own layouts in the format:
 
 ## Tips
 
-### CNABS for payments
+### CNABs for payments
 
 
-### CNABS for bank charges
+### CNABs for bank charges
 

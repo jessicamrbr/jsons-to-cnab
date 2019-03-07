@@ -11,11 +11,28 @@ class JsonsToCnab {
     constructor(registryLength=240) {
         this.registryLength = validateRegistryLength(registryLength)
 
-        this.headerFileContent = ""
-        this.footerFileContent = ""
+        this.headerFileContent = []
+        this.footerFileContent = []
         this.lots = []
         this.lotNumber = 0
         this.detailNumberInCurrentLot = 0
+    }
+
+    static async getFromLayoutsLib(product, registerAlias, layoutDirectory) {
+        layoutDirectory = validateLayoutDirectory(layoutDirectory)
+
+        let layout = await csv({
+            "trim": true,
+            "ignoreEmpty": true
+        }).fromFile(`${layoutDirectory}${product}.csv`)
+
+        layout = _.filter(layout, (item) => { return (
+            item.registerAlias == registerAlias
+        )})
+
+        layout = _.map(layout, (field) => { return _.omit(field, ['descripton']) })
+
+        return layout
     }
 
     configHeaderFile(layout) {
@@ -128,23 +145,6 @@ class JsonsToCnab {
         fileContent += this.footerFileContent.join("")
 
         return Buffer.from(fileContent, 'utf8')
-    }
-
-    static async getFromLayoutsLib(product, registerAlias, layoutDirectory) {
-        layoutDirectory = validateLayoutDirectory(layoutDirectory)
-
-        let layout = await csv({
-            "trim": true,
-            "ignoreEmpty": true
-        }).fromFile(`${layoutDirectory}${product}.csv`)
-
-        layout = _.filter(layout, (item) => { return (
-            item.registerAlias == registerAlias
-        )})
-
-        layout = _.map(layout, (field) => { return _.omit(field, ['descripton']) })
-
-        return layout
     }
 }
 
