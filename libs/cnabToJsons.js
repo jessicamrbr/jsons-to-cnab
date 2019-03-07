@@ -1,5 +1,9 @@
 const _ = require('lodash')
 
+const {
+    validateLayout
+} = require('./auxiliaryFunctions')
+
 class CnabToJsons {
     constructor(fileBase64Encoded) {
         const fileUtf8Encoded = (new Buffer(fileBase64Encoded, 'base64')).toString('utf8')
@@ -7,6 +11,11 @@ class CnabToJsons {
     }
 
     fit(definitions) {
+        for(let [key, definition] of definitions.entries()) {
+            validateDefinition(definition.positions, definition.values)
+            definitions[key].map = validateLayout(definition.map)
+        }
+
         this.definitions = definitions
     }
 

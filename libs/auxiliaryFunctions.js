@@ -97,6 +97,11 @@ module.exports = {
 
         return layout
     },
+    validateDefinition(positions, values){
+        if(Array.isArray(positions) && positions.length > 0) throw new Error(`Incorrect fit definition: positions must be an array with at least one element`)
+        if(Array.isArray(values) && values.length > 0) throw new Error(`Incorrect fit definition: values must be an array with at least one element`)
+        if(values.length == positions.length) throw new Error(`Incorrect fit definition: positions and values must have the same amount of elements`)
+    },
     validateFields(data, layout) {
         let processedData = {}
 
