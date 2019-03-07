@@ -1,10 +1,9 @@
-const csv = require('csvtojson')
 const _ = require('lodash')
 const flatten = require('array-flatten')
 
 const {
-    validateRegistryLength, validateLayoutDirectory,
-    validateLayout, validateFields
+    validateRegistryLength, validateLayout,
+    validateFields
 } = require('./auxiliaryFunctions')
 
 class JsonsToCnab {
@@ -18,31 +17,14 @@ class JsonsToCnab {
         this.detailNumberInCurrentLot = 0
     }
 
-    static async getFromLayoutsLib(product, registerAlias, layoutDirectory) {
-        layoutDirectory = validateLayoutDirectory(layoutDirectory)
-
-        let layout = await csv({
-            "trim": true,
-            "ignoreEmpty": true
-        }).fromFile(`${layoutDirectory}${product}.csv`)
-
-        layout = _.filter(layout, (item) => { return (
-            item.registerAlias == registerAlias
-        )})
-
-        layout = _.map(layout, (field) => { return _.omit(field, ['descripton']) })
-
-        return layout
-    }
-
     configHeaderFile(layout) {
         layout = validateLayout(layout)
         if(this.headerFileContent != "") throw new Error("The file header already added and can not be changed")
-        this.currentHeaderFileLayout = layout
+        this.currentHeaderFile = layout
     }
 
     setHeaderFile(data) {
-        data = validateFields(data, this.currentHeaderFileLayout)
+        data = validateFields(data, this.currentHeaderFile)
         this.headerFileContent = Object.values(data)
         this.headerFileContent.push("\n")
     }
@@ -127,11 +109,11 @@ class JsonsToCnab {
     configFooterFile(layout) {
         layout = validateLayout(layout)
         if(this.footerFileContent != "") throw new Error("The file footer already added and can not be changed")
-        this.currentFooterFileLayout = layout
+        this.currentFooterFile = layout
     }
 
     setFooterFile(data) {
-        data = validateFields(data, this.currentFooterFileLayout)
+        data = validateFields(data, this.currentFooterFile)
         this.footerFileContent = Object.values(data)
     }
 

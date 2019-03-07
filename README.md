@@ -188,13 +188,13 @@ We need to train the reader so that it identifies which layout to apply to each 
 
 const definitions = [
     {
-        "position": [14],
-        "value": ["A"],
+        "position": [14, 15],
+        "value": ["A" ],
         "map": exJsonMapSample
     }
 ]
 
-cnabToJsons.fit_define(definitions)
+cnabToJsons.fit(definitions)
 
 ...
 ```
