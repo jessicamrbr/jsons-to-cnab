@@ -163,9 +163,9 @@ Exports the data stored in the instance to a file:
 ``` JavaScript
 ...
 
-jsonsToCnab.save()
+const bufferWithFile = jsonsToCnab.save()
 
-...
+...****
 ```
 
 #### (Direction: return/retorno) Methods available for manipulating files through JSONs directly.
@@ -237,10 +237,10 @@ You can save your own layouts in the format:
 
 #### Others help methods
 
-- ```jsonsToCnab.counterLots()```: Count the current number of registered lots;
-- ```jsonsToCnab.counterRegistersInFile()```: Count the total lines of the file;
-- ```jsonsToCnab.counterRegistersInCurrentLot()```: Count total lines in lot
-- ```jsonsToCnab.counterDetailsInCurrentLot()```: Counts the total of computed* details
+- ```jsonsToCnab.counterLots()```: Count and return the current number of registered lots;
+- ```jsonsToCnab.counterRegistersInFile()```: Count and return the total lines of the file;
+- ```jsonsToCnab.counterRegistersInCurrentLot()```: Count and return total lines in lot
+- ```jsonsToCnab.counterDetailsInCurrentLot()```: Count and return the total of computed\* details
 
 \* By adding a row you can tell whether or not it should be computed. Some instructions specify that special records should not be computed with a new sequential number.
 
