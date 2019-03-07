@@ -14,7 +14,6 @@ const validateAndCompleteField = (data, field) => {
     // according to type valid and fills
     if(field.picture.toString()[0] == "9") {
         if((new RegExp(/^[0-9]*$/g)).test(data.toString())) {
-            data = _.deburr(data).toUpperCase().replace(/[^\w\d\s]/g, '')
             data = data.toString().padStart(field.positionLength, '0')
         } else {
             throw new Error(`Incorrect data: this field "${field.fieldName}" require only numbers in your data`)
@@ -22,7 +21,7 @@ const validateAndCompleteField = (data, field) => {
     }
 
     if(field.picture.toString()[0] == "X") {
-
+        data = _.deburr(data).toUpperCase().replace(/[^\w\d\s]/g, '')
         data = data.toString().padEnd(field.positionLength, ' ')
     }
 
