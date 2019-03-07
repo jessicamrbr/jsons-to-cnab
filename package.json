@@ -1,12 +1,12 @@
 {
   "name": "jsons-to-cnab",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Convert JSON data and map to cnab file",
   "author": "Jéssica Moura Ribeiro",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "tests": "mocha --inspect-brk --recursive \"./tests/**/*.test.js\"",
+    "tests": "mocha --inspect-brk=9231 --recursive \"./tests/**/*.test.js\"",
     "travis": "nyc --reporter lcov mocha --recursive \"./tests/**/*.test.js\"",
     "coverage": "nyc --reporter html mocha --recursive \"./tests/**/*.test.js\"",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
