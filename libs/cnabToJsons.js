@@ -1,7 +1,8 @@
 const _ = require('lodash')
 
 const {
-    validateLayout
+    validateLayout, validateDefinition,
+    parseValue
 } = require('./auxiliaryFunctions')
 
 class CnabToJsons {
@@ -33,10 +34,10 @@ class CnabToJsons {
 
                 if(!searchs.includes(false)) {
                     for(let field of definition.map) {
-                        jsonRow[field.fieldName] = row.slice(
+                        jsonRow[field.fieldName] = parseValue(row.slice(
                             (field.positionStart-1),
                             ((field.positionStart-1)+field.positionLength)
-                        )
+                        ), field.picture)
                     }
                 }
             }

@@ -110,5 +110,18 @@ module.exports = {
         }
 
         return processedData
+    },
+    parseValue(data, picture) {
+        // according to type parse value
+        if(picture.toString()[0] == "9") { data = parseInt(data) }
+
+        if(picture.toString()[0] == "X") { data = data.trim() }
+
+        if(picture.toString()[0] == "V") {
+            let positionDecimal = parseInt(picture.toString()[1]) * -1
+            data = parseFloat(data.slice(0, positionDecimal) + "." + data.slice(positionDecimal))
+        }
+
+        return data
     }
 }
