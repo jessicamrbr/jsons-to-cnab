@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const path = require('path');
 
 const validateAndCompleteField = (data, field) => {
     // if nothing try default value
@@ -7,14 +8,12 @@ const validateAndCompleteField = (data, field) => {
     }
 
     // validate exceeded length
-    if((field.positionLength - data.toString().length) < 0) {
-        throw new Error(`Incorrect data: the data "${data}" has many large for field "${field.fieldName}"`)
-    }
+    data = data.toString().slice(0, field.positionLength)
 
     // according to type valid and fills
     if(field.picture.toString()[0] == "9") {
-        if((new RegExp(/^[0-9]*$/g)).test(data.toString())) {
-            data = data.toString().padStart(field.positionLength, '0')
+        if((new RegExp(/^[0-9]*$/g)).test(data)) {
+            data = data.padStart(field.positionLength, '0')
         } else {
             throw new Error(`Incorrect data: this field "${field.fieldName}" require only numbers in your data`)
         }
@@ -22,11 +21,11 @@ const validateAndCompleteField = (data, field) => {
 
     if(field.picture.toString()[0] == "X") {
         data = _.deburr(data).toUpperCase().replace(/[^\w\d\s]/g, '')
-        data = data.toString().padEnd(field.positionLength, ' ')
+        data = data.padEnd(field.positionLength, ' ')
     }
 
     if(field.picture.toString()[0] == "V") {
-        if((new RegExp(/^([0-9]|\.|,)*$/g)).test(data.toString())) {
+        if((new RegExp(/^([0-9]|\.|,)*$/g)).test(data)) {
             data = data.replace(",", ".")
             data = (data == "") ? 0 : data
             data = parseFloat(data)
@@ -45,7 +44,7 @@ module.exports = {
     validateLayoutDirectory(layoutDirectory) {
         return (typeof fileName == "String" && fileName != "")
             ? layoutDirectory
-            : "./layouts/"
+            : path.resolve(__dirname, "../layouts/") + "/"
     },
     validateRegistryLength(registryLength) {
         return (typeof registryLength == "number" && (registryLength == 240 || registryLength == 400))
