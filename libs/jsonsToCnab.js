@@ -7,7 +7,7 @@ const {
 } = require('./auxiliaryFunctions')
 
 class JsonsToCnab {
-    constructor(registryLength=240, { lineBreak = '\r\n', breakLastLine = true }) {
+    constructor(registryLength=240, lineBreak = '\r\n', breakLastLine = true) {
         this.registryLength = validateRegistryLength(registryLength)
         this.lineBreak = lineBreak
         this.breakLastLine = breakLastLine
