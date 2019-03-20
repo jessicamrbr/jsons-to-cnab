@@ -7,8 +7,10 @@ const {
 } = require('./auxiliaryFunctions')
 
 class JsonsToCnab {
-    constructor(registryLength=240) {
+    constructor(registryLength=240, { lineBreak = '\r\n', breakLastLine = true }) {
         this.registryLength = validateRegistryLength(registryLength)
+        this.lineBreak = lineBreak
+        this.breakLastLine = breakLastLine
 
         this.headerFileContent = []
         this.footerFileContent = []
@@ -26,7 +28,7 @@ class JsonsToCnab {
     setHeaderFile(data) {
         data = validateFields(data, this.currentHeaderFile)
         this.headerFileContent = Object.values(data)
-        this.headerFileContent.push("\n")
+        this.headerFileContent.push(this.lineBreak)
     }
 
     configHeaderLot(layout) {
@@ -38,7 +40,7 @@ class JsonsToCnab {
         data = validateFields(data, this.currentHeaderLot)
         this.lots.push([])
         this.lots[this.lots.length-1][0] = Object.values(data)
-        this.lots[this.lots.length-1][0].push("\n")
+        this.lots[this.lots.length-1][0].push(this.lineBreak)
         this.lots[this.lots.length-1][1] = []
         this.lots[this.lots.length-1][2] = []
         this.lotNumber += 1
@@ -56,7 +58,7 @@ class JsonsToCnab {
     addRow(data, countRow=true) {
         data = validateFields(data, this.currentRow)
         data = Object.values(data)
-        data.push("\n")
+        data.push(this.lineBreak)
         this.lots[this.lots.length-1][1].push(data)
         this.detailNumberInCurrentLot += (countRow) ? 1 : 0
     }
@@ -103,7 +105,7 @@ class JsonsToCnab {
     addFooterLote(data) {
         data = validateFields(data, this.currentFooterLot)
         this.lots[this.lots.length-1][2] = Object.values(data)
-        this.lots[this.lots.length-1][2].push("\n")
+        this.lots[this.lots.length-1][2].push(this.lineBreak)
     }
 
     configFooterFile(layout) {
@@ -125,6 +127,10 @@ class JsonsToCnab {
         fileContent += this.headerFileContent.join("")
         fileContent += flatten(this.lots).join("")
         fileContent += this.footerFileContent.join("")
+
+        if (this.breakLastLine) {
+            fileContent += this.lineBreak
+        }
 
         return Buffer.from(fileContent, 'utf8')
     }
