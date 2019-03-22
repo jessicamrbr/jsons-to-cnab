@@ -39,6 +39,10 @@ const jsonsToCnab = new JsonsToCnab(registryLength)
 
 ...
 ```
+Optionally you can also pass the following parameters in the constructor:
+- lineBreak (String): Indicates which special character will be used to finalize the lines;
+- breakLastLine (Boolean): Indicates whether a blank line will be added at the end of the file;
+
 
 We can use config methods more than once. Each time it is used it will configure the element map until the next map configuration.
 
@@ -135,6 +139,8 @@ jsonsToCnab.addRow(exJsonDataSample)
 
 ...
 ```
+Optionally you can also pass the following parameters in the method:
+- countRow (Boolean): passing this parameter as false, the line will not be counted, this feature can be useful for continuation of lines;
 
 Configure a lot footer and define the data applied to the layout:
 
