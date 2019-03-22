@@ -44,6 +44,7 @@ class JsonsToCnab {
         this.lots[this.lots.length-1][1] = []
         this.lots[this.lots.length-1][2] = []
         this.lotNumber += 1
+        this.detailNumberInCurrentLot = 0;
     }
 
     counterLots() {
