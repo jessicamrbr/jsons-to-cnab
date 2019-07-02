@@ -42,9 +42,9 @@ const validateAndCompleteField = (data, field) => {
 
 module.exports = {
     validateLayoutDirectory(layoutDirectory) {
-        return (typeof fileName == "String" && fileName != "")
+        return (typeof layoutDirectory == "string" && layoutDirectory != "")
             ? layoutDirectory
-            : path.resolve(__dirname, "../layouts/") + "/"
+            : path.resolve(__dirname, "../layouts/")
     },
     validateRegistryLength(registryLength) {
         return (typeof registryLength == "number" && (registryLength == 240 || registryLength == 400))

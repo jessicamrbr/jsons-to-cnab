@@ -10,7 +10,7 @@ class CnabFromCsv {
         let layout = await csv({
             "trim": true,
             "ignoreEmpty": true
-        }).fromFile(`${layoutDirectory}${product}.csv`)
+        }).fromFile(`${layoutDirectory}/${product}.csv`)
 
         layout = _.filter(layout, (item) => {
             return (item.registerAlias == registerAlias            )
